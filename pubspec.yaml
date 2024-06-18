@@ -1,7 +1,7 @@
 name: local_storage_cache
-description: "A new Flutter package project."
-version: 0.0.1
-homepage:
+description: A comprehensive Flutter package for managing local storage and caching with advanced features like encryption, TTL (Time-To-Live), and backup/restore capabilities.
+version: 1.0.0
+homepage: https://github.com/protheeuz/local-storage-cache.git
 
 environment:
   sdk: '>=3.4.3 <4.0.0'
