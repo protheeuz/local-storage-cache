@@ -98,13 +98,15 @@ void main() {
     });
 
     test('Save cache with TTL and retrieve before expiration', () async {
-      await cacheManager.saveCache('key2', 'value2', ttl: const Duration(seconds: 2));
+      await cacheManager.saveCache('key2', 'value2',
+          ttl: const Duration(seconds: 2));
       final value = await cacheManager.getCache('key2');
       expect(value, 'value2');
     });
 
     test('Save cache with TTL and retrieve after expiration', () async {
-      await cacheManager.saveCache('key3', 'value3', ttl: const Duration(seconds: 1));
+      await cacheManager.saveCache('key3', 'value3',
+          ttl: const Duration(seconds: 1));
       await Future.delayed(const Duration(seconds: 2));
       final value = await cacheManager.getCache('key3');
       expect(value, null);

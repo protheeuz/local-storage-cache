@@ -101,9 +101,6 @@ await cacheManager.restoreCache('/path/to/backup.json');
 ### Additional Notes
 Make sure to replace `/path/to/backup.json` with the appropriate path in your file system when using the backup and restore functions. You can also add more examples and documentation based on the additional features implemented if needed.
 
-# License
-MIT License
-
 ## Explanation
 - General Description: A comprehensive Flutter package for managing local storage and caching with advanced features like encryption, TTL (Time-To-Live), and backup/restore capabilities.
 **Key Features:**

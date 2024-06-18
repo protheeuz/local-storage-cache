@@ -6,7 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// LocalStorage class to handle storing and retrieving data in shared preferences.
 /// It supports encryption, backup, and restore functionalities.
 class LocalStorage {
-  final encrypt.Encrypter _encrypter = encrypt.Encrypter(encrypt.AES(encrypt.Key.fromLength(32)));
+  final encrypt.Encrypter _encrypter =
+      encrypt.Encrypter(encrypt.AES(encrypt.Key.fromLength(32)));
   final encrypt.IV _iv = encrypt.IV.fromLength(16);
 
   /// Encrypts a plain text string.
@@ -115,7 +116,8 @@ class LocalStorage {
   Future<void> restoreStorage(String backupPath) async {
     final prefs = await SharedPreferences.getInstance();
     final backupFile = File(backupPath);
-    final backupData = jsonDecode(await backupFile.readAsString()) as Map<String, dynamic>;
+    final backupData =
+        jsonDecode(await backupFile.readAsString()) as Map<String, dynamic>;
     for (final key in backupData.keys) {
       final value = backupData[key];
       if (value is String) {

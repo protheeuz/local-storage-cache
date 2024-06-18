@@ -12,7 +12,8 @@ typedef ExpirationCallback = void Function(String key);
 class CacheManager {
   static final CacheManager _instance = CacheManager._internal();
   static Database? _database;
-  final encrypt.Encrypter _encrypter = encrypt.Encrypter(encrypt.AES(encrypt.Key.fromLength(32)));
+  final encrypt.Encrypter _encrypter =
+      encrypt.Encrypter(encrypt.AES(encrypt.Key.fromLength(32)));
   final encrypt.IV _iv = encrypt.IV.fromLength(16);
   final int _maxCacheSize;
   final ExpirationCallback? _expirationCallback;
@@ -21,7 +22,8 @@ class CacheManager {
   CacheManager._internal([this._maxCacheSize = 100, this._expirationCallback]);
 
   /// Factory constructor for CacheManager with customizable max cache size and expiration callback.
-  factory CacheManager({int maxCacheSize = 100, ExpirationCallback? expirationCallback}) {
+  factory CacheManager(
+      {int maxCacheSize = 100, ExpirationCallback? expirationCallback}) {
     return CacheManager._internal(maxCacheSize, expirationCallback);
   }
 
@@ -66,7 +68,8 @@ class CacheManager {
   /// Saves data to the cache with an optional TTL (Time-To-Live).
   Future<void> saveCache(String key, String value, {Duration? ttl}) async {
     final db = await database;
-    final expiration = ttl != null ? DateTime.now().add(ttl).millisecondsSinceEpoch : null;
+    final expiration =
+        ttl != null ? DateTime.now().add(ttl).millisecondsSinceEpoch : null;
     await db.insert(
       'cache',
       {'key': key, 'value': _encrypt(value), 'ttl': expiration},
@@ -77,7 +80,8 @@ class CacheManager {
 
   /// Enforces the maximum cache size by removing the oldest entries.
   Future<void> _enforceMaxCacheSize(Database db) async {
-    final count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM cache'));
+    final count =
+        Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM cache'));
     if (count! > _maxCacheSize) {
       await db.delete('cache',
           where: 'id IN (SELECT id FROM cache ORDER BY ttl ASC LIMIT ?)',
@@ -138,7 +142,8 @@ class CacheManager {
   Future<void> restoreCache(String backupPath) async {
     final db = await database;
     final backupFile = File(backupPath);
-    final cacheData = jsonDecode(await backupFile.readAsString()) as List<dynamic>;
+    final cacheData =
+        jsonDecode(await backupFile.readAsString()) as List<dynamic>;
     for (final entry in cacheData) {
       await db.insert(
         'cache',
