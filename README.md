@@ -56,7 +56,7 @@ await localStorage.removeData('key1');
 // Clear all data
 await localStorage.clearAll();
 ```
-##Cache Manager
+## Cache Manager
 ```dart
 import 'package:local_storage_cache/local_storage_cache.dart';
 
