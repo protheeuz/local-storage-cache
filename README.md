@@ -1,4 +1,4 @@
-# local_storage_cache
+# Local Storage Cache - Flutter
 
 A comprehensive Flutter package for managing local storage and caching with advanced features like encryption, TTL (Time-To-Live), and backup/restore capabilities.
 
