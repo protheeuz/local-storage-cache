@@ -10,7 +10,6 @@ typedef ExpirationCallback = void Function(String key);
 /// CacheManager class to handle caching operations with optional TTL (Time-To-Live).
 /// It also supports encryption, backup, and restore functionalities.
 class CacheManager {
-  static final CacheManager _instance = CacheManager._internal();
   static Database? _database;
   final encrypt.Encrypter _encrypter =
       encrypt.Encrypter(encrypt.AES(encrypt.Key.fromLength(32)));
@@ -128,6 +127,16 @@ class CacheManager {
   Future<void> clearAll() async {
     final db = await database;
     await db.delete('cache');
+  }
+
+  /// Deletes all the expired cache entries based on ttl.
+  ///
+  /// Returns the number of entries deleted.
+  Future<int> deleteExpiredCache() async {
+    final db = await database;
+    return await db.delete('cache',
+        where: 'ttl != NULL && ttl < ?',
+        whereArgs: [DateTime.now().millisecondsSinceEpoch]);
   }
 
   /// Backs up cache data to a specified file path.
