@@ -135,7 +135,7 @@ class CacheManager {
   Future<int> deleteExpiredCache() async {
     final db = await database;
     return await db.delete('cache',
-        where: 'ttl != NULL && ttl < ?',
+        where: 'ttl != NULL AND ttl < ?',
         whereArgs: [DateTime.now().millisecondsSinceEpoch]);
   }
 
